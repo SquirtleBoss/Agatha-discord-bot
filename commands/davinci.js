@@ -3,11 +3,11 @@ const linkai = require ('../linkopenai.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('list')
-		.setDescription('Generates a list of 5 ideas when given a prompt!')
-		.addStringOption(option => option.setName('input').setDescription('Enter a prompt to generate ideas from')),
+		.setName('davinci')
+		.setDescription('Speak directly with the davinci model')
+		.addStringOption(option => option.setName('input').setDescription('Your input here')),
 	async execute(interaction) {
-		var string = "provide a list of five ";
+		var string = "";
 		linkai.callOpenAI(string, "text-davinci-002", interaction);
 	}
 };
