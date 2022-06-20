@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require ('openai');
-const { openaikey } = require('./config.json');
 const wait = require('node:timers/promises').setTimeout;
 
 async function callOpenAI(prefix, model, interaction) {
@@ -10,7 +9,7 @@ async function callOpenAI(prefix, model, interaction) {
 		await interaction.deferReply();
 		const configuration = new Configuration({
     		organization: "org-oeHFO17GLBSVBz6jHRSUglKo",
-    		apiKey: openaikey,
+    		apiKey: process.env.openaikey,
 		});
 		const openai = new OpenAIApi(configuration);
 		console.log(prompt);
