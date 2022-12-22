@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require ('openai');
 const wait = require('node:timers/promises').setTimeout;
 
-async function callOpenAI(prefix, model, interaction) {
+async function callOpenAI(prefix, model, interaction, response_len=100) {
 		const string = interaction.options.getString('input');
 		console.log(string);
 		var prompt = prefix + string + ".";
@@ -16,7 +16,7 @@ async function callOpenAI(prefix, model, interaction) {
 		const completion = await openai.createCompletion(model, {
 	  		prompt: prompt,
 	  		temperature: 0.1,
-	  		max_tokens: 120,
+	  		max_tokens: response_len,
 		});
 		var reply = "";
 		for(const val of completion.data.choices) {
