@@ -8,6 +8,6 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Enter a prompt to generate ideas from')),
 	async execute(interaction) {
 		var string = "provide a list of five ";
-		linkai.callOpenAI(string, "text-davinci-002", interaction);
+		linkai.callOpenAI(string, "text-davinci-003", interaction);
 	}
 };

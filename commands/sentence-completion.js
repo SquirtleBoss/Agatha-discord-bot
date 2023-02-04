@@ -8,6 +8,6 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Enter an incomplete sentence')),
 	async execute(interaction) {
 		var string = "finish this sentence in an interesting way: ";
-		linkai.callOpenAI(string, "text-davinci-002", interaction);
+		linkai.callOpenAI(string, "text-davinci-003", interaction);
 	}
 };

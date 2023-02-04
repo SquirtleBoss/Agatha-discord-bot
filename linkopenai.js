@@ -8,7 +8,7 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 		var prompt = prefix + string + ".";
 		await interaction.deferReply();
 		const configuration = new Configuration({
-    		organization: "org-oeHFO17GLBSVBz6jHRSUglKo",
+    		organization: process.env.openaiorg,
     		apiKey: process.env.openaikey,
 		});
 		const openai = new OpenAIApi(configuration);
