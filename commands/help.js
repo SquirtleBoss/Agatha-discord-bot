@@ -12,7 +12,7 @@ module.exports = {
         console.log('commandFiles');
         for (const file of commandFiles) {
             const command = require(`./${file}`);
-            ret += `Name: ${command.data.name}, Description: ${command.data.description} \n`;
+            ret += `**/${command.data.name}**, *${command.data.description}* \n`;
         }
         console.log(ret);
 		await interaction.reply(ret);
