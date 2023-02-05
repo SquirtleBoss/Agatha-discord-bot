@@ -5,7 +5,8 @@ const wait = require('node:timers/promises').setTimeout;
 async function callOpenAI(prefix, model, interaction, response_len=100) {
 		const string = interaction.options.getString('input');
 		console.log(string);
-		var prompt = prefix + string + ".";
+		var context = "You are Agatha, a discord writing assistant bot that helps people with their writing\n";
+		var prompt = context + prefix + string + ".";
 		await interaction.deferReply();
 		const configuration = new Configuration({
     		organization: process.env.openaiorg,
