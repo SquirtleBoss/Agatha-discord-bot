@@ -1,4 +1,4 @@
-Ideas is a discord bot that uses the GPT-3 models from OpenAI to assist with writing. From creative writing to drafting an email, there are always times when the author becomes 'stuck' and can use a little assistance. 
+Agatha is a discord bot that uses the GPT-3 models from OpenAI to assist with writing. From creative writing to drafting an email, there are always times when the author becomes 'stuck' and can use a little assistance. 
 
 ## Commands
 
