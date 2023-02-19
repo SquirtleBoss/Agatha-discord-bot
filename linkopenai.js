@@ -26,6 +26,10 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 			console.log(val.text);
 		}
 
+		configuration = new Configuration({
+    		apiKey: process.env.openaikey,
+		});
+
 		// Moderation of response message
 		const moderation = await openai.createModeration({
 			input: reply,
