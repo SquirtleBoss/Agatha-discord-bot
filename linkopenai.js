@@ -25,41 +25,37 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 			reply = reply + val.text;
 			console.log(val.text);
 		}
-
-		configuration2 = new Configuration({
-    		apiKey: process.env.openaikey,
-		});
-		const openai2 = new OpenAIApi(configuration2);
-		// Moderation of response message
-		const moderation = await openai2.createModeration({
-			input: reply,
-		  });
 		
-		if (moderation.data.flagged) {
-			await interaction.editReply("***Content reply has been filtered due to inappropriate responses by the AI***");
-		}
-		else {
-			await interaction.editReply(reply);
-		}
+		// Moderation of response message
+		// const moderation = await openai.createModeration({
+		// 	input: reply,
+		//   });
+		
+		// if (moderation.data.flagged) {
+		// 	await interaction.editReply("***Content reply has been filtered due to inappropriate responses by the AI***");
+		// }
+		// else {
+		// 	await interaction.editReply(reply);
+		// }
 
 		
 
 		// *** FILTER DEPRECATED, USED NEW MODERATION INSTEAD ***
-		// //run the reply thru the filter to ensure safe content. 
-		// const filter = await openai.createCompletion("content-filter-alpha", {
-	    //   prompt: "<|endoftext|>"+ reply +"\n--\nLabel:",
-	    //   temperature: 0,
-	    //   max_tokens: 1,
-	    //   top_p: 0,
-	    //   logprobs: 10
-		// })
-		// console.log(filter.data.choices[0].text);
-		// console.log(filter.data.choices[0].logprobs.top_logprobs[0][2]);
+		//run the reply thru the filter to ensure safe content. 
+		const filter = await openai.createCompletion("content-filter-alpha", {
+	      prompt: "<|endoftext|>"+ reply +"\n--\nLabel:",
+	      temperature: 0,
+	      max_tokens: 1,
+	      top_p: 0,
+	      logprobs: 10
+		})
+		console.log(filter.data.choices[0].text);
+		console.log(filter.data.choices[0].logprobs.top_logprobs[0][2]);
 
-		// //reply if content is safe
-		// if (filter.data.choices[0].text == "2" && filter.data.choices[0].logprobs.top_logprobs[0][2] > -0.355)
-		// 	await interaction.editReply("***Content reply has been filtered due to inappropriate responses by the AI***");
-		// else
-		// 	await interaction.editReply(reply);
+		//reply if content is safe
+		if (filter.data.choices[0].text == "2" && filter.data.choices[0].logprobs.top_logprobs[0][2] > -0.355)
+			await interaction.editReply("***Content reply has been filtered due to inappropriate responses by the AI***");
+		else
+			await interaction.editReply(reply);
 }
 module.exports = {callOpenAI};
