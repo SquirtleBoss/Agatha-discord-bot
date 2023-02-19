@@ -8,6 +8,6 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Enter a sentence to be paraphrased')),
 	async execute(interaction) {
 		var string = "Correct this to standard English: ";
-		linkai.callOpenAI(string, "text-davinci-003", interaction);
+		linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=520);
 	}
 };
