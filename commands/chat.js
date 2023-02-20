@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const linkai = require ('../linkopenai.js');
 var Airtable = require('airtable');
-var base = new Airtable({apiKey: process.env.airtablekey}).base(airtablebase);
+var base = new Airtable({apiKey: process.env.airtablekey}).base(process.env.airtablebase);
 
 var recordId = "";
 var convo = "";
