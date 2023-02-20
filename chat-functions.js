@@ -7,7 +7,7 @@ async function retrieveRecord (user)  {
         maxRecords: 1,
         filterByFormula: "{ID} = '"+ user + "'"
     }).eachPage(function page(records, fetchNextPage) {
-        console.log("cp");
+        console.log(records);
         //This function (`page`) will get called for each page of records.
         return records;
     }, function done(err) {
