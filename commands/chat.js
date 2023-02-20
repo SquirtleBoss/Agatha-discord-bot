@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const linkai = require ('../linkopenai.js');
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: process.env.airtablekey}).base(process.env.airtablebase);
+var sha256 = require('js-sha256').sha256;
 
 var recordId = "";
 var convo = "";
@@ -15,11 +16,11 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-
+        var user = interaction.user.id;
         const records = await base('Chats').select({
         // Selecting the first 3 records in Grid view:
         maxRecords: 1,
-        filterByFormula: "{ID} = '"+ "asdf" + "'"
+        filterByFormula: "{ID} = '"+ sha256(user) + "'"
         }).firstPage();
 
         if (records.length == 0)
@@ -32,12 +33,9 @@ module.exports = {
                 convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${interaction.options.getString('input')}\nA: `;
             });
 
-            console.log(convo);
             //openai
             var string = "Continue the following conversation\n" + convo;
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
-
-            console.log(record);
 
             if (!isNew) {
                 var record = records[0].fields;
@@ -58,7 +56,7 @@ module.exports = {
                     base('Chats').create([
                         {
                         "fields": {
-                            "ID": "asdfg",
+                            "ID": sha256(user),
                             "M1": " ",
                             "M2": " ",
                             "M3": " ",
