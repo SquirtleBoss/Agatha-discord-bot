@@ -15,3 +15,4 @@ async function retrieveRecord (user)  {
     });
 }
 
+module.exports(retrieveRecord);
