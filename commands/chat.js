@@ -20,6 +20,7 @@ module.exports = {
             maxRecords: 1,
             filterByFormula: "{ID} = '"+ "asdfg" + "'"
         }).eachPage(function page(records, fetchNextPage) {
+            console.log("cp");
             if (records.length == 0)
                 isNew = true;
             //This function (`page`) will get called for each page of records.
@@ -27,7 +28,7 @@ module.exports = {
                 //console.log('Retrieved', record.fields);
                 recordId = record.getId();
                 var x = record.fields;
-                convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${text}\nA: `;
+                convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${interaction.options.getString('input')}\nA: `;
             });
 
             console.log(convo);
@@ -45,7 +46,7 @@ module.exports = {
                         "M2": record.M4,
                         "M3": record.M5,
                         "M4": record.M6,
-                        "M5": interaction,
+                        "M5": interaction.options.getString('input'),
                         "M6": resp
                     }
                     }])
@@ -59,7 +60,7 @@ module.exports = {
                             "M2": " ",
                             "M3": " ",
                             "M4": " ",
-                            "M5": interaction,
+                            "M5": interaction.options.getString('input'),
                             "M6": resp
                         }
                         }])
