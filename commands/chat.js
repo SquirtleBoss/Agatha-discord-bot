@@ -29,16 +29,19 @@ module.exports = {
                 recordId = record.getId();
                 var x = record.fields;
                 convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${interaction.options.getString('input')}\nA: `;
-            });});
+            });
 
             console.log(convo);
             //openai
             var string = "Continue the following conversation\n" + convo;
-		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
+		    var resp = linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
+
+            setTimeout(function() {}, 5000);
+            console.log(record);
 
             if (!isNew) {
                 var record = records[0].fields;
-                await base('Chats').update([
+                base('Chats').update([
                     {
                     "id": recordId,
                     "fields": {
@@ -52,7 +55,7 @@ module.exports = {
                     }])
                 }
                 else {
-                    await base('Chats').create([
+                    base('Chats').create([
                         {
                         "fields": {
                             "ID": "asdfg",
@@ -65,5 +68,10 @@ module.exports = {
                         }
                         }])
                 }
+
+
+        }, function done(err) {
+            if (err) { console.error(err); return; }
+        });
     }
 };
