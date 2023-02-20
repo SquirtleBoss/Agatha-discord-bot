@@ -15,7 +15,7 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-        await base('Chats').select({
+        base('Chats').select({
             // Selecting the first 3 records in Grid view:
             maxRecords: 1,
             filterByFormula: "{ID} = '"+ "asdfg" + "'"
