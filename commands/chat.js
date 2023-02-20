@@ -15,7 +15,7 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-        base('Chats').select({
+        await base('Chats').select({
             // Selecting the first 3 records in Grid view:
             maxRecords: 1,
             filterByFormula: "{ID} = '"+ "asdfg" + "'"
@@ -29,12 +29,12 @@ module.exports = {
                 recordId = record.getId();
                 var x = record.fields;
                 convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${interaction.options.getString('input')}\nA: `;
-            });
+            });});
 
             console.log(convo);
             //openai
             var string = "Continue the following conversation\n" + convo;
-		    var resp = linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
+		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
                 var record = records[0].fields;
@@ -65,10 +65,5 @@ module.exports = {
                         }
                         }])
                 }
-
-
-        }, function done(err) {
-            if (err) { console.error(err); return; }
-        });
     }
 };
