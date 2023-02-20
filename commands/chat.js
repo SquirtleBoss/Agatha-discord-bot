@@ -38,7 +38,7 @@ module.exports = {
 
             if (!isNew) {
                 var record = records[0].fields;
-                base('Chats').update([
+                await base('Chats').update([
                     {
                     "id": recordId,
                     "fields": {
@@ -52,7 +52,7 @@ module.exports = {
                     }])
                 }
                 else {
-                    base('Chats').create([
+                    await base('Chats').create([
                         {
                         "fields": {
                             "ID": "asdfg",
