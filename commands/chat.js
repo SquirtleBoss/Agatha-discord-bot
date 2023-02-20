@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const linkai = require ('../linkopenai.js');
+const linkchat = require ('../chat-functions.js');
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: process.env.airtablekey}).base(process.env.airtablebase);
 
@@ -15,16 +16,12 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-        base('Chats').select({
-            // Selecting the first 3 records in Grid view:
-            maxRecords: 1,
-            filterByFormula: "{ID} = '"+ "asdfg" + "'"
-        }).eachPage(function page(records, fetchNextPage) {
-            console.log("cp");
-            if (records.length == 0)
-                isNew = true;
-            //This function (`page`) will get called for each page of records.
-            records.forEach(function(record) {
+        var records = await linkchat.retrieveRecord(base, "asdfg");
+
+        if (records.length == 0)
+            isNew = true;
+            
+        records.forEach(function(record) {
                 //console.log('Retrieved', record.fields);
                 recordId = record.getId();
                 var x = record.fields;
@@ -34,9 +31,8 @@ module.exports = {
             console.log(convo);
             //openai
             var string = "Continue the following conversation\n" + convo;
-		    var resp = linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
+		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
-            setTimeout(function() {}, 5000);
             console.log(record);
 
             if (!isNew) {
@@ -68,10 +64,5 @@ module.exports = {
                         }
                         }])
                 }
-
-
-        }, function done(err) {
-            if (err) { console.error(err); return; }
-        });
     }
 };
