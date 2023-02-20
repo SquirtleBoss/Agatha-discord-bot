@@ -16,7 +16,7 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-        var records = await linkchat.retrieveRecord(base, "asdfg");
+        var records = await linkchat.retrieveRecord("asdfg");
 
         if (records.length == 0)
             isNew = true;

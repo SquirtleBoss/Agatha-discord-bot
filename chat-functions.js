@@ -1,4 +1,7 @@
-function retrieveRecord (base, user)  {
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: process.env.airtablekey}).base(process.env.airtablebase);
+
+async function retrieveRecord (user)  {
     base('Chats').select({
         // Selecting the first 3 records in Grid view:
         maxRecords: 1,
