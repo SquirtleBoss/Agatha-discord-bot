@@ -25,7 +25,7 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 			reply = reply + val.text;
 			console.log(val.text);
 		}
-		
+
 		// Moderation of response message
 		// const moderation = await openai.createModeration({
 		// 	input: reply,
@@ -57,5 +57,6 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 			await interaction.editReply("***Content reply has been filtered due to inappropriate responses by the AI***");
 		else
 			await interaction.editReply(reply);
+		return reply;
 }
 module.exports = {callOpenAI};
