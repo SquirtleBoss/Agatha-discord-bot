@@ -17,7 +17,7 @@ module.exports = {
 	async execute(interaction) {
         // begin retrieval
         var user = interaction.user.id;
-        const record = await base('Chats').select({
+        const records = await base('Chats').select({
         // Selecting the first 3 records in Grid view:
         maxRecords: 1,
         filterByFormula: "{ID} = '"+ sha256(user) + "'"
@@ -25,25 +25,30 @@ module.exports = {
 
         if (record.length == 0)
             isNew = true;
-        recordId = record.id;
-        var x = record.fields;
-        convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
+            
+        records.forEach(function(record) {
+                //console.log('Retrieved', record.fields);
+                recordId = record.getId();
+                var x = record.fields;
+                convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: ${interaction.options.getString('input')}\nA: `;
+            });
 
             //openai
             var string = "Continue the following conversation\n" + convo;
+            console.log(string);
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
-                var rec = record.fields;
-                console.log("updating...");
+                var record = records[0].fields;
+                console.log("updating record...");
                 base('Chats').update([
                     {
                     "id": recordId,
                     "fields": {
-                        "M1": rec.M3,
-                        "M2": rec.M4,
-                        "M3": rec.M5,
-                        "M4": rec.M6,
+                        "M1": record.M3,
+                        "M2": record.M4,
+                        "M3": record.M5,
+                        "M4": record.M6,
                         "M5": interaction.options.getString('input'),
                         "M6": resp
                     }
