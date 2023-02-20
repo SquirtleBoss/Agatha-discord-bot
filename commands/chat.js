@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const linkai = require ('../linkopenai.js');
-const linkchat = require ('../chat-functions.js');
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: process.env.airtablekey}).base(process.env.airtablebase);
 
