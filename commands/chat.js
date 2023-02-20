@@ -16,7 +16,12 @@ module.exports = {
 		.addStringOption(option => option.setName('input').setDescription('Your message here')),
 	async execute(interaction) {
         // begin retrieval
-        const records = await linkchat.retrieveRecord("asdfg");
+
+        const records = await base('Chats').select({
+        // Selecting the first 3 records in Grid view:
+        maxRecords: 1,
+        filterByFormula: "{ID} = '"+ "asdf" + "'"
+        }).firstPage();
 
         if (records.length == 0)
             isNew = true;
