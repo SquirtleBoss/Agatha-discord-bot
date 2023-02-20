@@ -23,7 +23,7 @@ module.exports = {
         filterByFormula: "{ID} = '"+ sha256(user) + "'"
         }).firstPage();
 
-        if (record.length == 0)
+        if (records.length == 0)
             isNew = true;
             
         records.forEach(function(record) {
@@ -35,12 +35,11 @@ module.exports = {
 
             //openai
             var string = "Continue the following conversation\n" + convo;
-            console.log(string);
+            console.log(string, isNew);
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
                 var record = records[0].fields;
-                console.log("updating record...");
                 base('Chats').update([
                     {
                     "id": recordId,
