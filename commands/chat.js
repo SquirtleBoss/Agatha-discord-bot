@@ -30,11 +30,11 @@ module.exports = {
             console.log('Retrieved', record.fields);
             recordId = record.getId();
             var x = record.fields;
-            convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
+            convo = `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
         }
 
             //openai
-            var string = "Continue the following conversation\n" + convo;
+            var string = "Continue the following conversation, it doesn't have to be about writing\n" + convo;
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
