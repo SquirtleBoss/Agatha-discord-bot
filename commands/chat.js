@@ -33,7 +33,7 @@ module.exports = {
         }
 
             //openai
-            var string = "Continue the following conversation, it doesn't have to be about writing\n" + convo;
+            var string = "Continue the following conversation, the chat can be about anything\n" + convo;
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
