@@ -27,10 +27,9 @@ module.exports = {
             isNew = true;
         else {
             record = records[0];
-            console.log('Retrieved', record.fields);
             recordId = record.getId();
             var x = record.fields;
-            convo = `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
+            convo = `${x.M1}\n${x.M2}\n${x.M3}\n${x.M4}\n${x.M5}\n${x.M6}\n`;
         }
 
             //openai
