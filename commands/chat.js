@@ -23,19 +23,18 @@ module.exports = {
         filterByFormula: "{ID} = '"+ sha256(user) + "'"
         }).firstPage();
 
-        if (records.length == 0)
+        if (records.length == 0) 
             isNew = true;
-            
-        records.forEach(function(record) {
-                //console.log('Retrieved', record.fields);
-                recordId = record.getId();
-                var x = record.fields;
-                convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
-            });
+        else {
+            record = records[0];
+            console.log('Retrieved', record.fields);
+            recordId = record.getId();
+            var x = record.fields;
+            convo += `U: ${x.M1}\nA: ${x.M2}\nU: ${x.M3}\nA: ${x.M4}\nU: ${x.M5}\nA: ${x.M6}\nU: `;
+        }
 
             //openai
             var string = "Continue the following conversation\n" + convo;
-            console.log(string, isNew);
 		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
 
             if (!isNew) {
@@ -66,6 +65,7 @@ module.exports = {
                             "M6": resp
                         }
                         }])
+                    isNew = false;
                 }
     }
 };
