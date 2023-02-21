@@ -23,13 +23,15 @@ module.exports = {
         filterByFormula: "{ID} = '"+ sha256(user) + "'"
         }).firstPage();
 
-        if (records.length == 0) 
+        if (records.length == 0) {
             isNew = true;
+            convo = "U:";
+        }
         else {
             record = records[0];
             recordId = record.getId();
             var x = record.fields;
-            convo = `U:${x.M1}\nA:${x.M2}\nU:${x.M3}\nA:${x.M4}\nU:${x.M5}\nA:${x.M6}\nA:`;
+            convo = `U:${x.M1}\nA:${x.M2}\nU:${x.M3}\nA:${x.M4}\nU:${x.M5}\nA:${x.M6}\nU:`;
         }
 
             //openai
