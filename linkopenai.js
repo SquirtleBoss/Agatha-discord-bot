@@ -25,6 +25,7 @@ async function callOpenAI(prefix, model, interaction, response_len=100) {
 			reply = reply + val.text;
 			console.log(val.text);
 		}
+		console.log("token count: " + completion.data.usage.total_tokens);
 
 		// Moderation of response message
 		// const moderation = await openai.createModeration({
