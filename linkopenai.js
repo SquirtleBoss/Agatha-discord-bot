@@ -2,12 +2,12 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require ('openai');
 const wait = require('node:timers/promises').setTimeout;
 
-async function callOpenAI(prefix, model, interaction, response_len=100) {
+async function callOpenAI(prefix, model, interaction, response_len=100, suffix="") {
 		const string = interaction.options.getString('input');
 		console.log(string);
 		// context given
 		var context = "You are Agatha, a Discord writing assistant bot that helps people with their writing\n";
-		var prompt = context + prefix + string + ".";
+		var prompt = context + prefix + string + "." + suffix;
 		await interaction.deferReply();
 		const configuration = new Configuration({
     		organization: process.env.openaiorg,

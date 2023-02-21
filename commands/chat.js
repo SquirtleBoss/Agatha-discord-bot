@@ -29,12 +29,12 @@ module.exports = {
             record = records[0];
             recordId = record.getId();
             var x = record.fields;
-            convo = `${x.M1}\n${x.M2}\n${x.M3}\n${x.M4}\n${x.M5}\n${x.M6}\n`;
+            convo = `U:${x.M1}\nA:${x.M2}\nU:${x.M3}\nA:${x.M4}\nU:${x.M5}\nA:${x.M6}\nA:`;
         }
 
             //openai
             var string = "Continue the following conversation, the chat can be about anything\n" + convo;
-		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024);
+		    var resp = await linkai.callOpenAI(string, "text-davinci-003", interaction, response_len=1024, suffix = "\nA:");
 
             if (!isNew) {
                 var record = records[0].fields;
