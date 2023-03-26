@@ -19,12 +19,8 @@ async function callOpenAI(prefix, model, interaction, response_len=100, suffix="
   		model: "gpt-3.5-turbo",
   		messages: [{role: "system", prompt},{role: "user", content: string}],
 		});
-		var reply = "";
-		for(const val of completion.data.choices) {
-			reply = reply + val.text;
-			console.log(val.text);
-		}
-		console.log("token count: " + completion.data.usage.total_tokens);
+		var reply = completion.choices.message.content;
+		console.log(reply);
 
 		// Moderation of response message
 		// const moderation = await openai.createModeration({
