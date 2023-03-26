@@ -7,7 +7,7 @@ async function callOpenAI(prefix, model, interaction, response_len=100, suffix="
 		console.log(string);
 		// context given
 		var context = "You are Agatha, a Discord writing assistant bot that helps people with their writing\n";
-		var prompt = context + prefix + string + "." + suffix;
+		var prompt = context + prefix;
 		await interaction.deferReply();
 		const configuration = new Configuration({
     		organization: process.env.openaiorg,
@@ -15,10 +15,9 @@ async function callOpenAI(prefix, model, interaction, response_len=100, suffix="
 		});
 		const openai = new OpenAIApi(configuration);
 		console.log(prompt);
-		const completion = await openai.createCompletion(model, {
-	  		prompt: prompt,
-	  		temperature: 0.1,
-	  		max_tokens: response_len,
+		const completion = await openai.createChatCompletion({
+  		model: "gpt-3.5-turbo",
+  		messages: [{role: "system", prompt},{role: "user", content: string}],
 		});
 		var reply = "";
 		for(const val of completion.data.choices) {
