@@ -17,9 +17,9 @@ async function callOpenAI(prefix, model, interaction, response_len=100, suffix="
 		console.log(prompt);
 		const completion = await openai.createChatCompletion({
   		model: "gpt-3.5-turbo",
-  		messages: [{role: "system", prompt},{role: "user", content: string}],
+  		messages: [{role: "system", content: prompt},{role: "user", content: string}],
 		});
-		var reply = completion.choices.message.content;
+		var reply = completion.data.choices[0].message.content;
 		console.log(reply);
 
 		// Moderation of response message
