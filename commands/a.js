@@ -49,6 +49,7 @@ module.exports = {
 		console.log(string);
 		// context given
 		var context = "You are Agatha, a Discord assistant bot. Here's how the user describes themselves: " + intro + "\n and here's how they want you to act: " + persona;
+        console.log(context);
 		const configuration = new Configuration({
     		organization: process.env.openaiorg,
     		apiKey: process.env.openaikey,
