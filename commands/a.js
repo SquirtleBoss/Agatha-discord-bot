@@ -108,12 +108,16 @@ module.exports = {
                         {
                         "fields": {
                             "ID": sha256(user),
+                            "intro": 'an intelligent person',
+                            "persona": 'a friendly assistant',
                             "M1": " ",
                             "M2": " ",
                             "M3": " ",
                             "M4": " ",
-                            "M5": interaction.options.getString('input'),
-                            "M6": reply
+                            "M5": " ",
+                            "M6": " ",
+                            "M7": interaction.options.getString('input'),
+                            "M8": reply
                         }
                         }])
                     isNew = false;
